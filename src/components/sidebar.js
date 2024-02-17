@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+// Sidebar.js
+import React, { useState, useEffect } from 'react';
 import "./styles/sidebar.css";
 
-const Sidebar = ({ onClickMe, onGroupClicked }) => {
+const Sidebar = ({ onClickMe, onGroupClicked, onUpdateNotes, groups: propGroups }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [groupColor, setGroupColor] = useState('#000000'); // Default color is black
+  const [predefinedColors] = useState(['#B38BFA', '#FF79F2', '#43E6FC', '#F19576', '#0047FF', '#6691FF']);
   const [groups, setGroups] = useState([]);
 
-  const predefinedColors = ['#B38BFA', '#FF79F2', '#43E6FC', '#F19576', '#0047FF', '#6691FF'];
-
-  // Load groups from local storage on component mount
   useEffect(() => {
     const storedGroups = JSON.parse(localStorage.getItem('groups')) || [];
     setGroups(storedGroups);
-  }, []);
+  }, [propGroups]);
 
   const handleEllipseButtonClick = (e) => {
     e.stopPropagation();
@@ -23,18 +22,20 @@ const Sidebar = ({ onClickMe, onGroupClicked }) => {
   const handleCreateGroup = () => {
     if (groupName.trim() !== '') {
       const newGroup = { name: groupName, color: groupColor, notes: [] };
-
-      // Update the state with the new group
-      setGroups([...groups, newGroup]);
-
-      // Save groups to local storage
-      saveGroupsToLocalStorage([...groups, newGroup]);
-
+  
+      // Update the state with the new group and save to local storage
+      setGroups(prevGroups => {
+        const updatedGroups = [...prevGroups, newGroup];
+        saveGroupsToLocalStorage(updatedGroups);
+        return updatedGroups;
+      });
+  
       setShowPopup(false);
       setGroupName('');
       setGroupColor('#000000');
     }
   };
+  
 
   const handleColorSelection = (color) => {
     setGroupColor(color);
@@ -44,8 +45,8 @@ const Sidebar = ({ onClickMe, onGroupClicked }) => {
     onGroupClicked(group);
   };
 
-  const saveGroupsToLocalStorage = (updatedGroups) => {
-    localStorage.setItem('groups', JSON.stringify(updatedGroups));
+  const saveGroupsToLocalStorage = () => {
+    localStorage.setItem('groups', JSON.stringify(groups));
   };
 
   // Get initials from each word of the group name

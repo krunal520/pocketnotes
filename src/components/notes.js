@@ -1,12 +1,10 @@
+// Notes.js
 import React, { useState, useEffect } from 'react';
-import "./styles/sidebar.css";
-
-const Notes = ({ selectedGroup }) => {
+const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
   const [newNoteContent, setNewNoteContent] = useState('');
   const [notes, setNotes] = useState(selectedGroup ? selectedGroup.notes : []);
 
   useEffect(() => {
-    // Update the notes when the selected group changes
     setNotes(selectedGroup ? selectedGroup.notes : []);
   }, [selectedGroup]);
 
@@ -19,20 +17,20 @@ const Notes = ({ selectedGroup }) => {
 
       setNotes([...notes, newNote]);
 
-      // Assuming you want to update the group's notes as well
       if (selectedGroup) {
         const updatedGroup = { ...selectedGroup, notes: [...selectedGroup.notes, newNote] };
-        // You may want to update the entire groups array if you store groups in a state
-        // setGroups([...groups.filter(group => group.id !== selectedGroup.id), updatedGroup]);
+        onUpdateNotes(updatedGroup.notes);
+
+        // Save the updated groups to local storage
+        saveGroupsToLocalStorage([...groups, updatedGroup]);
       }
 
-      // Clear the input field
       setNewNoteContent('');
     }
   };
 
-  const saveNotesToLocalStorage = (updatedNotes) => {
-    localStorage.setItem('notes', JSON.stringify(updatedNotes));
+  const saveGroupsToLocalStorage = (updatedGroups) => {
+    localStorage.setItem('groups', JSON.stringify(updatedGroups));
   };
 
   const formatTimestamp = () => {
@@ -55,15 +53,17 @@ const Notes = ({ selectedGroup }) => {
   };
 
   return (
-    <div style={{ backgroundColor: '#DAE5F5', flexDirection: 'column', alignItems: 'center', textAlign: 'center', height: '100vh', width: '100%' }}>
+    <div style={{ backgroundColor: '#DAE5F5', flexDirection: 'column', alignItems: 'center', textAlign: 'center', height: '100%', width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', backgroundColor: "#001F8B", height: "60px" }}>
         {selectedGroup ? (
           <>
             <span style={{
               backgroundColor: selectedGroup.color,
               display: 'flex',
-              width: '50px',
-              height: '50px',
+              marginTop: '6px',
+              marginLeft: '6px',
+              width: '40px',
+              height: '40px',
               borderRadius: '50%',
               alignItems: 'center',
               justifyContent: 'center',
@@ -80,11 +80,10 @@ const Notes = ({ selectedGroup }) => {
         )}
       </div>
 
-
       {/* Add Note Form */}
       <div className='note-content' style={{ backgroundColor: "#001F8B" }}>
         <textarea
-        style={{width: "100%", height: "70%", marginLeft: "10px", marginRight: "10px"}}
+          style={{ width: "100%", height: "70%", marginLeft: "10px", marginRight: "10px" }}
           placeholder="Note Content"
           value={newNoteContent}
           onChange={(e) => setNewNoteContent(e.target.value)}
@@ -92,8 +91,8 @@ const Notes = ({ selectedGroup }) => {
         <button onClick={handleAddNote} style={{
           position: 'absolute',
           marginRight: '10px',
-          top: '80px', // Adjust the top position as needed
-          right: '10px', // Adjust the right position as needed
+          top: '80px',
+          right: '10px',
           backgroundColor: '#ABABAB',
           color: 'white',
           border: 'none',
@@ -105,12 +104,12 @@ const Notes = ({ selectedGroup }) => {
 
       {/* Display Notes */}
       {notes.length === 0 ? (
-        <p>No notes available for this group.</p>
+        <p style={{ marginTop: '200px' }}>No notes available for this group.</p>
       ) : (
         notes.map((note, index) => (
-          <div key={index} style={{ width: '80%', margin: '10px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
-            <p>{note.content}</p>
-            <p>{`Created on: ${note.timestamp}`}</p>
+          <div key={index} style={{ backgroundColor: 'white', margin: '10px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
+            <p style={{ marginBottom: '8px', fontSize: '16px' }}>{note.content}</p>
+            <p style={{ fontSize: '12px', color: '#888' }}>{`Created on: ${note.timestamp}`}</p>
           </div>
         ))
       )}
