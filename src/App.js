@@ -11,12 +11,10 @@ function App() {
   const [groups, setGroups] = useState([]);
 
   const handleClickMe = () => {
-    // Set the active component to 'notes' when the button is clicked
     setActiveComponent('notes');
   };
 
   const handleGroupClicked = (group) => {
-    // Set the selected group and switch to 'notes' component
     setSelectedGroup(group);
     setActiveComponent('notes');
   };
@@ -25,12 +23,10 @@ function App() {
     if (selectedGroup) {
       const updatedGroup = { ...selectedGroup, notes: updatedNotes };
 
-      // Update the state with the updated group
       setGroups(prevGroups => {
         return prevGroups.map(group => (group.name === selectedGroup.name ? updatedGroup : group));
       });
 
-      // Save the updated groups to local storage
       saveGroupsToLocalStorage();
     }
   };

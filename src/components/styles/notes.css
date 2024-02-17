@@ -1,3 +1,18 @@
+/* ************* Sidebar*********** */
+.sidebar {
+    background-color: white;
+    width: 24vw;
+    height: 100vh;
+    text-align: center;
+    align-items: center;
+}
+
+.no-group {
+    padding: 50px;
+    font-size: 20px;
+}
+
+
 .sidebar-heading {
     color: black;
     margin-top: 40px;
@@ -7,6 +22,14 @@
     line-height: 41px;
     letter-spacing: 0.02em;
     text-align: center;
+}
+
+.group-item.selected-group {
+    position: relative;
+    border-radius: 5px;
+    background: #2F2F2F2B;
+    width: 80%;
+    opacity: 0.6;
 }
 
 .ellipse-container {
@@ -25,9 +48,9 @@
     z-index: 100;
     position: fixed;
     top: 450px;
-    /* Adjust as needed */
+
     left: 210px;
-    /* Adjust as needed */
+
 }
 
 .ellipse-icon {
@@ -185,12 +208,92 @@
     align-items: center;
     height: 26vh;
     width: 76vw;
-    background-color: #e8e8e8;
+    background-color: #001F8B;
     position: fixed;
     bottom: 0;
 }
 
 
+/* ******** Home ********** */
+.home {
+    background-color: #DAE5F5;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+}
 
+.img-lock {
+    width: 16px;
+    height: 19px;
+}
 
-/* *********************************** */
+/* ******************* Notes********************* */
+
+.notes {
+    background-color: #DAE5F5;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.selectedGroup {
+    display: flex;
+    align-items: flex-start;
+    background-color: #001F8B;
+    height: 60px;
+}
+
+.group-initial {
+
+    display: flex;
+    margin-top: 6px;
+    margin-left: 6px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.selectedGroup-name {
+    margin-left: 10px;
+    margin-top: 10px;
+    color: white;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
+
+.text-area {
+    width: 100%;
+    height: 80%;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 35px;
+    letter-spacing: 0.02em;
+}
+
+.notes-button {
+    position: absolute;
+    margin-right: 10px;
+    top: 100px;
+    right: 10px;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+}

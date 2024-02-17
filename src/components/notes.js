@@ -1,5 +1,7 @@
-// Notes.js
+// notes.js
 import React, { useState, useEffect } from 'react';
+import "./styles/notes.css";
+
 const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
   const [newNoteContent, setNewNoteContent] = useState('');
   const [notes, setNotes] = useState(selectedGroup ? selectedGroup.notes : []);
@@ -22,7 +24,7 @@ const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
         onUpdateNotes(updatedGroup.notes);
 
         // Save the updated groups to local storage
-        saveGroupsToLocalStorage([...groups, updatedGroup]);
+        saveGroupsToLocalStorage(groups.map(group => (group.name === selectedGroup.name ? updatedGroup : group)));
       }
 
       setNewNoteContent('');
@@ -36,8 +38,8 @@ const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
   const formatTimestamp = () => {
     const options = {
       day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
+      month: 'short',
+      year: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
       hour12: true,
@@ -48,32 +50,28 @@ const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
 
   const getGroupInitials = (name) => {
     const words = name.split(' ');
-    const initials = words.map(word => word.charAt(0).toUpperCase());
+    let initials = [];
+
+    for (let i = 0; i < Math.min(2, words.length); i++) {
+      const word = words[i];
+      initials.push(word.charAt(0).toUpperCase());
+    }
+
     return initials.join('');
+
   };
 
   return (
-    <div style={{ backgroundColor: '#DAE5F5', flexDirection: 'column', alignItems: 'center', textAlign: 'center', height: '100%', width: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', backgroundColor: "#001F8B", height: "60px" }}>
+    <div className='notes'>
+      <div className='selectedGroup'>
         {selectedGroup ? (
           <>
-            <span style={{
-              backgroundColor: selectedGroup.color,
-              display: 'flex',
-              marginTop: '6px',
-              marginLeft: '6px',
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontSize: '20px',
-              fontWeight: 'bold'
+            <span className='group-initial' style={{
+              backgroundColor: selectedGroup.color
             }}>
               {getGroupInitials(selectedGroup.name)}
             </span>
-            <span style={{ marginLeft: '10px', marginTop: '10px', color: "white" }}>{selectedGroup.name}</span>
+            <span className='selectedGroup-name'>{selectedGroup.name}</span>
           </>
         ) : (
           'Pocket Notes'
@@ -81,25 +79,24 @@ const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
       </div>
 
       {/* Add Note Form */}
-      <div className='note-content' style={{ backgroundColor: "#001F8B" }}>
+      <div className='note-content'>
         <textarea
-          style={{ width: "100%", height: "70%", marginLeft: "10px", marginRight: "10px" }}
-          placeholder="Note Content"
+          className='text-area'
+          placeholder="Enter your text here..........."
           value={newNoteContent}
           onChange={(e) => setNewNoteContent(e.target.value)}
         />
-        <button onClick={handleAddNote} style={{
-          position: 'absolute',
-          marginRight: '10px',
-          top: '80px',
-          right: '10px',
-          backgroundColor: '#ABABAB',
-          color: 'white',
-          border: 'none',
-          padding: '5px 10px',
-          cursor: 'pointer',
-          borderRadius: '5px'
-        }} > ➔</button>
+        <button
+          onClick={handleAddNote}
+          className='notes-button'
+          style={{
+            backgroundColor: newNoteContent.trim() === '' ? '#ABABAB' : '#001F8B',
+            cursor: newNoteContent.trim() === '' ? 'not-allowed' : 'pointer',
+          }}
+          disabled={newNoteContent.trim() === ''}
+        >
+          ➔
+        </button>
       </div>
 
       {/* Display Notes */}
@@ -109,7 +106,7 @@ const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
         notes.map((note, index) => (
           <div key={index} style={{ backgroundColor: 'white', margin: '10px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
             <p style={{ marginBottom: '8px', fontSize: '16px' }}>{note.content}</p>
-            <p style={{ fontSize: '12px', color: '#888' }}>{`Created on: ${note.timestamp}`}</p>
+            <p style={{ fontSize: '12px', color: '#888' }}>{` ${note.timestamp}`}</p>
           </div>
         ))
       )}
