@@ -101,12 +101,12 @@ const Notes = ({ selectedGroup, onUpdateNotes, groups }) => {
 
       {/* Display Notes */}
       {notes.length === 0 ? (
-        <p style={{ marginTop: '200px' }}>No notes available for this group.</p>
+        <h4 >Add Notes</h4>
       ) : (
         notes.map((note, index) => (
-          <div key={index} style={{ backgroundColor: 'white', margin: '10px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
-            <p style={{ marginBottom: '8px', fontSize: '16px' }}>{note.content}</p>
-            <p style={{ fontSize: '12px', color: '#888' }}>{` ${note.timestamp}`}</p>
+          <div key={index} style={{ backgroundColor: 'white', margin: '10px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px', marginBottom: '8px', fontSize: '16px', textAlign:'left' }}>
+            <p style={{  }}>{note.content}</p>
+            <p style={{ fontSize: '12px', color: '#888', textAlign:'right' }}>{` ${note.timestamp}`}</p>
           </div>
         ))
       )}
