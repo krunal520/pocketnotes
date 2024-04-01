@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto";
+}
+
+.container {
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.container h2 {
+  margin: 1rem;
+}
+
+.button {
+  color: #fff;
+  background-color: #000;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.75rem 0.25rem;
+  margin: 0 1rem;
+  margin-bottom: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.modal,
+.overlay {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  display: grid;
+  place-content: center;
+  background-color: rgba(49, 49, 49, 0.45);
+}
+
+.modalContent {
+  height: 250px;
+  width: 275px;
+  background-color: white;
+  font-weight: 500;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 1.5rem;
+}
+
+.modalContent > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.modalContent input {
+  width: 150px;
+  border-radius: 15px;
+  border: 1px solid #333;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  outline: none;
+}
+
+.modalContent button {
+  align-self: center;
+  padding: 0.5rem 1.25rem;
+  color: #fff;
+  background-color: #000;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  width: 80%;
+}
+
+.color {
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+}
+
+.colorComp {
+  display: flex;
+  gap: 20px;
+}
+
+.colorComp > div {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent label {
+  font-size: 0.9rem;
+  align-self: center;
+}
+
+button + label {
+  color: red;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.groupName {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.35rem;
+  font-weight: 500;
+  padding: 1.2rem 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.groupName:active {
+  background-color: #f7ecdc;
+}
+
+.icon {
+  color: #fff;
+  height: 60px;
+  width: 60px;
+  border-radius: 40px;
+  display: grid;
+  place-content: center;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 325px;
+  }
+  .groupName {
+    padding: 1rem;
+    margin-left: 1rem;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    width: 310px;
+  }
+  .modalContent {
+    width: 400px;
+    height: 275px;
+    gap: 2rem;
+    font-size: 1.25rem;
+  }
+  .modalContent h3,
+  .modalContent > div:first-of-type,
+  .modalContent > div:last-of-type {
+    margin-left: 3rem;
+  }
+  .modalContent input {
+    width: 180px;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.selected {
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}

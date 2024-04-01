@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.hidden {
+  display: none;
+}
+
+.icon {
+  color: #fff;
+  height: 50px;
+  width: 50px;
+  border-radius: 40px;
+  display: grid;
+  place-content: center;
+  font-size: 1rem;
+}
+
+.header {
+  width: 100%;
+  height: 10vh;
+  background-color: #e8e8e8;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 1.25rem;
+}
+
+.header > div {
+  display: flex;
+  gap: 10px;
+}
+
+.icon + div {
+  align-self: center;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.content {
+  width: 100%;
+  height: 70vh;
+  overflow: auto;
+}
+
+.input {
+  width: 100%;
+  height: 20vh;
+  padding: 1rem 1.5rem;
+  background-color: #e8e8e8;
+}
+
+.input textarea {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  resize: none;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+textarea + div {
+  position: absolute;
+  right: 2rem;
+  bottom: 1.35rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.notes {
+  width: 100%;
+  padding: 1rem;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dateTime {
+  font-size: 0.75rem;
+  width: 120px;
+  font-weight: 500;
+}
+
+.note {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  overflow-x: hidden;
+}
+
+.noteContent {
+  font-weight: 400;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .notes {
+    font-size: 1rem;
+  }
+  .note {
+    padding: 1rem 2rem;
+    line-height: 1.5;
+  }
+  .dateTime {
+    width: 150px;
+    font-size: 1rem;
+  }
+  .noteContent {
+    width: 800px;
+  }
+}
